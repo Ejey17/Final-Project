@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | EJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f8fb;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --primary: #2563eb;
+      --primary-soft: #dbeafe;
+      --border: #e2e8f0;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    .panel {
+      margin-top: 32px;
+      padding: 32px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .eyebrow::before {
+      content: '•';
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 3vw, 3.6rem);
+      line-height: 1.05;
+    }
+
+    .subtext {
+      margin: 18px 0;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .btn,
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn:hover,
+    .link-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .link-btn {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .hero-card {
+      padding: 24px;
+      background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+      border-radius: 22px;
+      border: 1px solid #dbeafe;
+    }
+
+    .hero-card h2 {
+      margin-top: 0;
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .card-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .card-list li {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .icon-circle {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .section-title span {
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+
+    .skill-grid,
+    .project-grid,
+    .education-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .skill-card,
+    .project-card,
+    .edu-card {
+      border-radius: 18px;
+      padding: 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .skill-card:hover,
+    .project-card:hover,
+    .edu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.1);
+    }
+
+    .skill-card h3,
+    .project-card h3,
+    .edu-card h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .skill-card p,
+    .project-card p,
+    .edu-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .project-meta {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .contact-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .contact-card div {
+      line-height: 1.6;
+    }
+
+    .contact-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 28px 0 16px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .hero-card {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .panel {
+        padding: 24px 18px;
+      }
+
+      .topbar {
+        padding: 14px 0;
+      }
+
+      nav {
+        gap: 12px;
+        font-size: 0.92rem;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+      }
+
+      .skill-grid,
+      .project-grid,
+      .education-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="#profile">EJ Portfolio</a>
+      <nav>
+        <a href="#profile">Profile</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="profile" class="panel">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Web Portfolio</p>
+          <h1>Hi, I'm EJ</h1>
+          <p class="subtext">I make some things I may be able or not able to do.</p>
+          <div class="actions">
+            <a class="btn" href="#projects">See Projects</a>
+            <a class="link-btn" href="#contact">Get in Touch</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h2>About Me</h2>
+          <p>Making 2D games and interactive experiences with a focus on creativity and user engagement. Creating user-generated content for various platforms. Repetitively debugging code to ensure smooth functionality and performance.</p>
+          <ul class="card-list">
+            <li><span class="icon-circle">📍</span> <strong>Location:</strong> Philippines.</li>
+            <li><span class="icon-circle">🛠️</span> <strong>Focus:</strong> Game Making, Debugging, UGCs</li>
+            <li><span class="icon-circle">✨</span> <strong>Style:</strong> Game Logic, User Experience, Visual Design</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="panel">
+      <div class="section-title"><span>•</span> Skills</div>
+      <div class="skill-grid" style="grid-template-columns: repeat(3, minmax(180px, 1fr));">
+        <article class="skill-card">
+          <h3>Godot Engine Development</h3>
+          <p>Making 2D games, managing game logic, and implementing fun and complex systems like traps and puzzle using GDScript.</p>
+        </article>
+        <article class="skill-card">
+          <h3>UGC and Asset Creation</h3>
+          <p>Designing, texturing, and integrating customized user-generated content in digital environments such as Roblox.</p>
+        </article>
+        <article class="skill-card">
+          <h3>Debugging</h3>
+          <p>Identifying and resolving issues in code to ensure smooth functionality and performance.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="panel">
+      <div class="section-title"><span>•</span> Projects</div>
+      <div class="project-grid" style="grid-template-columns: repeat(2, minmax(250px, 1fr));">
+        <article class="project-card">
+          <h3>Portfolio Page</h3>
+          <p>A responsive personal portfolio page designed with soft colors, clear sections, and consistent typography.</p>
+          <div class="project-meta">HTML / CSS / UX</div>
+        </article>
+        <article class="project-card">
+          <h3>WIP 2D Maze Game Application</h3>
+          <p>A compact project display with cards that highlight features, goals, and tools in a readable layout.</p>
+          <div class="project-meta">Puzzle Game/ Maze/ Godot Engine</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="education" class="panel">
+      <div class="section-title"><span>•</span> Education</div>
+      <div class="education-grid" style="grid-template-columns: repeat(2, minmax(220px, 1fr));">
+        <article class="edu-card">
+          <h3>Web Design Fundamentals</h3>
+          <p>Coursework covering responsive design, layout grids, typography, and accessible user interfaces.</p>
+        </article>
+        <article class="edu-card">
+          <h3>Capstone Focus</h3>
+          <p>Currently developing a multi-level 2D maze-based game using the Godot Engine.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="panel">
+      <div class="section-title"><span>•</span> Contact</div>
+      <div class="contact-grid" style="grid-template-columns: repeat(2, minmax(240px, 1fr));">
+        <div class="contact-card">
+          <span class="icon-circle">✉️</span>
+          <div>
+            <strong>Email</strong>
+            <p>palacieloej@gmail.com</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="icon-circle">📞</span>
+          <div>
+            <strong>Phone</strong>
+            <p>+63 9503243057</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="icon-circle">💼</span>
+          <div>
+            <strong>LinkedIn</strong>
+            <p><a href="https://www.linkedin.com/in/emmar-jay-palacielo-9a72a0361/" target="_blank">https://www.linkedin.com/in/emmar-jay-palacielo-9a72a0361/</a></p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="icon-circle">🌐</span>
+          <div>
+            <strong>Website</strong>
+            <p><a href="https://www.ej-portfolio.com" target="_blank">www.ej-portfolio.com</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>A Simple Portfolio</p>
+  </footer>
+
+</body>
+</html>
